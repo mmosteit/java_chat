@@ -88,7 +88,7 @@ public class StartupDialog extends JDialog {
 			}
 			// This should not happen
 			else{
-				
+				System.out.println("Error, code should not get here in the OK Button listener");
 			}
 			parent.setVisible(false);
 		}
@@ -170,12 +170,11 @@ public class StartupDialog extends JDialog {
 		
 		pack();
 		
-		setVisible(true);
-		
+	
 	}
 	
 	public Vector<String> getResult(){
-		
+		setModal(true);
 		setVisible(true);
 		
 		return retVal;

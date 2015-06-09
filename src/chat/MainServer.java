@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.*;
 import java.util.HashMap;
 import java.lang.Thread;
+import java.util.Vector;
 
 public class MainServer {
 
@@ -12,22 +13,22 @@ public class MainServer {
     private HashMap<String,RoomThread> RoomMap;
     private RoomThread room;
 
-    public MainServer(String [] args) throws IOException {
+    public MainServer(Vector<String> args) throws IOException {
         Thread RoomThread_Thread;
         RoomMap  = new HashMap<String,RoomThread>();
         MainSock = new ServerSocket();
-        MainSock.bind(new InetSocketAddress(args[1],9001));
+        MainSock.bind(new InetSocketAddress(args.get(1),9001));
 
 
-        for(int i = 2; i < args.length; i++){
+        for(int i = 2; i < args.size(); i++){
 
-            if(RoomMap.containsKey(args[i])){
-                System.out.println("Skipping redundant room "+args[i]);
+            if(RoomMap.containsKey(args.get(i))){
+                System.out.println("Skipping redundant room "+args.get(i));
             }
             else{
-                room = new RoomThread(args[i]);
-                RoomMap.put(args[i], room);
-                System.out.println("Just created room "+args[i]);
+                room = new RoomThread(args.get(i));
+                RoomMap.put(args.get(i), room);
+                System.out.println("Just created room "+args.get(i));
             }
             RoomThread_Thread = new Thread(room);
             RoomThread_Thread.start();
